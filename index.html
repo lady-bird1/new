@@ -3,613 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python 自学学习站 | 我的学习笔记</title>
-    <!-- 引入字体和图标 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>2026 个人主页</title>
+    <!-- 引入Inter字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* 全局样式 - 浅绿+白色极简风格 */
+        /* 全局样式重置与基础设置 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Microsoft YaHei", sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         :root {
-            --primary: #81C784; /* 浅绿色主色 */
-            --primary-dark: #66BB6A; /* 深一点的绿色（hover） */
-            --bg-white: #FFFFFF;    /* 白色背景 */
-            --text-gray: #555555;   /* 文字灰色 */
-            --light-gray: #F5F5F5;  /* 浅灰背景 */
-            --border-gray: #E0E0E0; /* 边框灰色 */
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --dark: #1A1A1A;
+            --gray: #6B7280;
+            --primary: #3B82F6;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
         }
 
         body {
             background-color: var(--light-gray);
-            color: var(--text-gray);
+            color: var(--dark);
             line-height: 1.6;
         }
 
-        /* 导航栏样式 */
-        nav {
-            background-color: var(--bg-white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
+        /* 容器与布局 */
+        .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* 顶部横幅 - 时间展示 */
+        .header-banner {
+            background-color: var(--white);
+            padding: 12px 0;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .time-display {
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        /* 音乐控件 - 右上角 */
+        .music-player {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            height: 70px;
+            gap: 8px;
+            background-color: var(--light-gray);
+            padding: 4px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: var(--primary);
-            text-decoration: none;
+        .music-player:hover {
+            background-color: var(--primary);
+            color: var(--white);
         }
 
-        .nav-links {
-            display: flex;
+        .music-icon {
+            font-size: 1rem;
+        }
+
+        .music-text {
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            padding: 40px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 30px;
         }
 
-        .nav-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        .nav-links a:hover {
-            color: var(--primary-dark);
+        @media (max-width: 600px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
         }
 
-        /* 通用容器样式 */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* 板块通用样式 */
+        .section-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 24px;
+            height: 100%;
+            transition: var(--transition);
         }
 
-        /* 首页 - 学习目标和进度 */
-        .hero {
-            background-color: var(--bg-white);
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
+        .section-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
         }
 
-        .hero h1 {
-            color: var(--primary);
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
             margin-bottom: 20px;
-            font-size: 28px;
-        }
-
-        .goal-list {
-            margin-bottom: 30px;
-        }
-
-        .goal-item {
-            margin: 15px 0;
-            font-size: 16px;
-        }
-
-        /* 进度条样式 */
-        .progress-section {
-            margin-top: 30px;
-        }
-
-        .progress-item {
-            margin: 20px 0;
-        }
-
-        .progress-label {
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--light-gray);
+            color: var(--dark);
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 15px;
+            align-items: center;
+            gap: 8px;
         }
 
-        .progress-bar {
-            height: 10px;
-            background-color: var(--border-gray);
-            border-radius: 5px;
+        .section-title i {
+            color: var(--primary);
+        }
+
+        /* 兴趣板块 */
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .hobby-item {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            padding: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hobby-item:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .hobby-icon {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .hobby-name {
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .hobby-progress {
+            margin-top: 10px;
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
             overflow: hidden;
         }
 
-        .progress-fill {
+        .progress-bar {
             height: 100%;
-            background-color: var(--primary);
-            border-radius: 5px;
-            transition: width 0.5s ease;
+            background-color: var(--white);
+            border-radius: 3px;
         }
 
-        /* 知识点专栏样式 */
-        .knowledge {
-            background-color: var(--bg-white);
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-
-        .knowledge h2 {
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-size: 24px;
-            border-bottom: 2px solid var(--light-gray);
-            padding-bottom: 10px;
-        }
-
-        .tab-container {
+        /* 学习板块 */
+        .study-list {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .tab-btn {
-            padding: 10px 20px;
+        .study-item {
             background-color: var(--light-gray);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-            padding: 20px;
-            border: 1px solid var(--border-gray);
-            border-radius: 4px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .knowledge-item {
-            margin: 15px 0;
-            padding: 15px;
-            background-color: var(--light-gray);
-            border-radius: 4px;
-        }
-
-        .knowledge-item h3 {
-            color: var(--primary-dark);
-            margin-bottom: 8px;
-            font-size: 18px;
-        }
-
-        /* 刷题记录样式 */
-        .刷题记录 {
-            background-color: var(--bg-white);
-            padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
+            padding: 16px;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .刷题记录 h2 {
+        .study-item:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .study-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .study-icon {
+            font-size: 1.4rem;
             color: var(--primary);
-            margin-bottom: 30px;
-            font-size: 24px;
-            border-bottom: 2px solid var(--light-gray);
-            padding-bottom: 10px;
+            transition: var(--transition);
         }
 
-        table {
+        .study-item:hover .study-icon {
+            color: var(--white);
+        }
+
+        .study-name {
+            font-weight: 500;
+        }
+
+        .study-status {
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .study-item:hover .study-status {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+        }
+
+        /* 日历日记板块 */
+        .calendar {
             width: 100%;
             border-collapse: collapse;
         }
 
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border-gray);
+        .calendar th {
+            padding: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--gray);
         }
 
-        th {
-            background-color: var(--light-gray);
-            color: var(--primary-dark);
-        }
-
-        tr:hover {
-            background-color: var(--light-gray);
-        }
-
-        /* 学习资源下载区样式 */
-        .resources {
-            background-color: var(--bg-white);
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-        }
-
-        .resources h2 {
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-size: 24px;
-            border-bottom: 2px solid var(--light-gray);
-            padding-bottom: 10px;
-        }
-
-        .resource-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .resource-card {
-            padding: 20px;
-            border: 1px solid var(--border-gray);
-            border-radius: 8px;
-            transition: box-shadow 0.3s;
-        }
-
-        .resource-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .resource-card h3 {
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .resource-card a {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--primary);
-            text-decoration: none;
-            padding: 8px 15px;
-            border: 1px solid var(--primary);
+        .calendar td {
+            padding: 8px;
+            text-align: center;
             border-radius: 4px;
-            transition: all 0.3s;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
         }
 
-        .resource-card a:hover {
+        .calendar td:hover {
+            background-color: var(--light-gray);
+        }
+
+        .calendar td.has-note::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
             background-color: var(--primary);
-            color: white;
         }
 
-        /* 复盘日记样式 */
-        .review {
-            background-color: var(--bg-white);
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .calendar td.active {
+            background-color: var(--primary);
+            color: var(--white);
         }
 
-        .review h2 {
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-size: 24px;
-            border-bottom: 2px solid var(--light-gray);
-            padding-bottom: 10px;
-        }
-
-        .diary-item {
-            margin: 20px 0;
-            padding: 20px;
+        .diary-preview {
+            margin-top: 20px;
+            padding: 16px;
             background-color: var(--light-gray);
             border-radius: 8px;
         }
 
         .diary-date {
-            color: var(--primary-dark);
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--gray);
+            font-size: 0.9rem;
         }
 
-        /* 响应式适配 */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 15px;
-            }
+        .diary-content {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
 
-            .hero, .knowledge, .刷题记录, .resources, .review {
-                padding: 20px;
-            }
+        .diary-photo {
+            margin-top: 10px;
+            width: 100%;
+            height: 120px;
+            border-radius: 6px;
+            background-color: var(--gray);
+            background-image: url('https://picsum.photos/400/200');
+            background-size: cover;
+            background-position: center;
+        }
 
-            .resource-list {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                font-size: 14px;
-            }
-
-            th, td {
-                padding: 8px 10px;
-            }
+        /* 底部版权 */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            background-color: var(--white);
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">Python 自学站</a>
-            <div class="nav-links">
-                <a href="#home">首页</a>
-                <a href="#knowledge">知识点</a>
-                <a href="#刷题">刷题记录</a>
-                <a href="#resources">学习资源</a>
-                <a href="#review">复盘日记</a>
+    <!-- 顶部时间横幅 + 音乐控件 -->
+    <header class="header-banner">
+        <div class="container">
+            <div class="time-display" id="current-time">2026年3月19日 星期四 12:00:00</div>
+            <div class="music-player">
+                <i class="fas fa-music music-icon"></i>
+                <span class="music-text">正在播放：平静的午后</span>
             </div>
         </div>
-    </nav>
+    </header>
 
     <!-- 主内容区 -->
-    <div class="container">
-        <!-- 首页：学习目标 + 进度展示 -->
-        <section id="home" class="hero">
-            <h1>Python 自学学习目标</h1>
-            <div class="goal-list">
-                <div class="goal-item">✅ 掌握 Python 基础语法（变量、数据类型、循环、函数）</div>
-                <div class="goal-item">✅ 熟练使用常用库（NumPy、Pandas、Matplotlib）</div>
-                <div class="goal-item">✅ 完成 200 道算法刷题（LeetCode Easy/Medium）</div>
-                <div class="goal-item">✅ 独立完成 3 个实战项目（爬虫、数据分析、自动化脚本）</div>
-            </div>
-
-            <div class="progress-section">
-                <h2>学习进度</h2>
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Python 基础语法</span>
-                        <span>90%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 90%;"></div>
+    <main class="container main-content">
+        <!-- 兴趣板块 -->
+        <section class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-heart"></i> 个人兴趣
+            </h2>
+            <div class="hobbies-grid">
+                <div class="hobby-item">
+                    <i class="fas fa-book hobby-icon"></i>
+                    <span class="hobby-name">读书</span>
+                    <div class="hobby-progress">
+                        <div class="progress-bar" style="width: 75%;"></div>
                     </div>
                 </div>
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>Python 常用库</span>
-                        <span>65%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 65%;"></div>
+                <div class="hobby-item">
+                    <i class="fas fa-hands hobby-icon"></i>
+                    <span class="hobby-name">手工</span>
+                    <div class="hobby-progress">
+                        <div class="progress-bar" style="width: 60%;"></div>
                     </div>
                 </div>
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>算法刷题</span>
-                        <span>45%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 45%;"></div>
+                <div class="hobby-item">
+                    <i class="fas fa-film hobby-icon"></i>
+                    <span class="hobby-name">电影</span>
+                    <div class="hobby-progress">
+                        <div class="progress-bar" style="width: 85%;"></div>
                     </div>
                 </div>
-                <div class="progress-item">
-                    <div class="progress-label">
-                        <span>实战项目</span>
-                        <span>20%</span>
+                <div class="hobby-item">
+                    <i class="fas fa-pen hobby-icon"></i>
+                    <span class="hobby-name">写作</span>
+                    <div class="hobby-progress">
+                        <div class="progress-bar" style="width: 50%;"></div>
                     </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 20%;"></div>
+                </div>
+                <div class="hobby-item">
+                    <i class="fas fa-dumbbell hobby-icon"></i>
+                    <span class="hobby-name">运动</span>
+                    <div class="hobby-progress">
+                        <div class="progress-bar" style="width: 90%;"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 知识点专栏：基础/进阶/实战 -->
-        <section id="knowledge" class="knowledge">
-            <h2>知识点专栏</h2>
-            <div class="tab-container">
-                <button class="tab-btn active" onclick="switchTab('basic')">基础</button>
-                <button class="tab-btn" onclick="switchTab('advanced')">进阶</button>
-                <button class="tab-btn" onclick="switchTab('practice')">实战</button>
-            </div>
-
-            <!-- 基础知识点 -->
-            <div id="basic" class="tab-content active">
-                <div class="knowledge-item">
-                    <h3>变量与数据类型</h3>
-                    <p>核心：整数(int)、浮点数(float)、字符串(str)、列表(list)、字典(dict)、元组(tuple)、集合(set)的定义和基本操作。</p>
-                    <p>易错点：字符串不可变、列表索引从0开始、字典的键必须是不可变类型。</p>
+        <!-- 学习板块 -->
+        <section class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i> 学习目标
+            </h2>
+            <div class="study-list">
+                <div class="study-item">
+                    <div class="study-info">
+                        <i class="fas fa-briefcase study-icon"></i>
+                        <span class="study-name">考公备考</span>
+                    </div>
+                    <span class="study-status">进行中</span>
                 </div>
-                <div class="knowledge-item">
-                    <h3>循环与条件判断</h3>
-                    <p>核心：if-elif-else 条件判断、for 循环、while 循环、break/continue 关键字的使用。</p>
-                    <p>示例：遍历列表、嵌套循环、循环中修改列表元素的注意事项。</p>
+                <div class="study-item">
+                    <div class="study-info">
+                        <i class="fas fa-certificate study-icon"></i>
+                        <span class="study-name">行业内考试</span>
+                    </div>
+                    <span class="study-status">待开始</span>
                 </div>
-                <div class="knowledge-item">
-                    <h3>函数定义与调用</h3>
-                    <p>核心：def 定义函数、参数（位置参数、关键字参数、默认参数）、return 返回值、lambda 匿名函数。</p>
-                </div>
-            </div>
-
-            <!-- 进阶知识点 -->
-            <div id="advanced" class="tab-content">
-                <div class="knowledge-item">
-                    <h3>面向对象编程(OOP)</h3>
-                    <p>核心：类(class)、对象(object)、属性、方法、继承、多态、封装、魔术方法(__init__、__str__等)。</p>
-                    <p>实战场景：自定义数据结构、封装业务逻辑。</p>
-                </div>
-                <div class="knowledge-item">
-                    <h3>装饰器</h3>
-                    <p>核心：函数作为参数、闭包、装饰器语法(@)、带参数的装饰器。</p>
-                    <p>应用场景：日志记录、性能统计、权限校验。</p>
-                </div>
-                <div class="knowledge-item">
-                    <h3>迭代器与生成器</h3>
-                    <p>核心：iter()/next() 迭代器、yield 生成器、生成器表达式，节省内存的高效遍历方式。</p>
-                </div>
-            </div>
-
-            <!-- 实战知识点 -->
-            <div id="practice" class="tab-content">
-                <div class="knowledge-item">
-                    <h3>爬虫基础（requests + BeautifulSoup）</h3>
-                    <p>步骤：发送请求(get/post)、解析HTML、提取数据、保存到文件/数据库。</p>
-                    <p>注意：反爬机制（User-Agent、代理IP、请求间隔）。</p>
-                </div>
-                <div class="knowledge-item">
-                    <h3>数据分析（Pandas + Matplotlib）</h3>
-                    <p>核心：数据读取(read_csv)、数据清洗(缺失值/重复值)、数据透视表、可视化图表(折线图/柱状图)。</p>
-                </div>
-                <div class="knowledge-item">
-                    <h3>自动化脚本（os + sys + subprocess）</h3>
-                    <p>应用：文件批量处理、系统命令执行、定时任务（结合schedule库）。</p>
+                <div class="study-item">
+                    <div class="study-info">
+                        <i class="fas fa-code study-icon"></i>
+                        <span class="study-name">编程学习</span>
+                    </div>
+                    <span class="study-status">每日打卡</span>
                 </div>
             </div>
         </section>
 
-        <!-- 每日刷题记录 -->
-        <section id="刷题" class="刷题记录">
-            <h2>每日刷题记录</h2>
-            <table>
+        <!-- 日历日记板块 -->
+        <section class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-calendar"></i> 每日记录
+            </h2>
+            <table class="calendar">
                 <thead>
                     <tr>
-                        <th>日期</th>
-                        <th>题目名称</th>
-                        <th>难度</th>
-                        <th>耗时</th>
-                        <th>知识点</th>
-                        <th>复盘</th>
+                        <th>日</th>
+                        <th>一</th>
+                        <th>二</th>
+                        <th>三</th>
+                        <th>四</th>
+                        <th>五</th>
+                        <th>六</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>2026-03-15</td>
-                        <td>两数之和</td>
-                        <td>简单</td>
-                        <td>15分钟</td>
-                        <td>列表、哈希表</td>
-                        <td>用字典优化查找效率，时间复杂度从O(n²)降到O(n)</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
                     </tr>
                     <tr>
-                        <td>2026-03-16</td>
-                        <td>有效的括号</td>
-                        <td>简单</td>
-                        <td>20分钟</td>
-                        <td>栈、字符串</td>
-                        <td>注意边界条件：空字符串、奇数长度的括号直接返回False</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                        <td class="has-note">13</td>
+                        <td>14</td>
                     </tr>
                     <tr>
-                        <td>2026-03-17</td>
-                        <td>最长公共前缀</td>
-                        <td>简单</td>
-                        <td>25分钟</td>
-                        <td>字符串、遍历</td>
-                        <td>横向扫描法比纵向扫描法更易理解，需处理空列表情况</td>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td class="active has-note">19</td>
+                        <td>20</td>
+                        <td>21</td>
                     </tr>
                     <tr>
-                        <td>2026-03-18</td>
-                        <td>删除排序数组中的重复项</td>
-                        <td>简单</td>
-                        <td>30分钟</td>
-                        <td>数组、双指针</td>
-                        <td>双指针法是最优解，空间复杂度O(1)，需注意数组为空的情况</td>
+                        <td>22</td>
+                        <td>23</td>
+                        <td class="has-note">24</td>
+                        <td>25</td>
+                        <td>26</td>
+                        <td>27</td>
+                        <td>28</td>
                     </tr>
                 </tbody>
             </table>
+            <div class="diary-preview">
+                <div class="diary-date">2026年3月19日 星期四</div>
+                <div class="diary-content">
+                    今日完成编程学习2小时，读了《极简主义》第三章，傍晚散步30分钟。天气晴，心情很好。
+                </div>
+                <div class="diary-photo"></div>
+            </div>
         </section>
+    </main>
 
-        <!-- 学习资源下载区 -->
-        <section id="resources" class="resources">
-            <h2>学习资源下载区</h2>
-            <div class="resource-list">
-                <div class="resource-card">
-                    <h3>Python 基础教程 PDF</h3>
-                    <p>包含语法、案例、练习题，适合零基础入门</p>
-                    <a href="#" download>点击下载</a>
-                </div>
-                <div class="resource-card">
-                    <h3>NumPy 实战视频教程</h3>
-                    <p>100集高清视频，从入门到精通NumPy库</p>
-                    <a href="#">查看链接</a>
-                </div>
-                <div class="resource-card">
-                    <h3>LeetCode Python 刷题笔记</h3>
-                    <p>200道题的解题思路+代码实现</p>
-                    <a href="#" download>点击下载</a>
-                </div>
-                <div class="resource-card">
-                    <h3>Python 实战项目源码</h3>
-                    <p>爬虫、数据分析、自动化脚本完整源码</p>
-                    <a href="#">查看链接</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 个人复盘日记 -->
-        <section id="review" class="review">
-            <h2>个人复盘日记</h2>
-            <div class="diary-item">
-                <div class="diary-date">2026-03-18 星期一</div>
-                <p>今日学习内容：Python 装饰器的使用，完成了3道LeetCode简单题。</p>
-                <p>收获：理解了装饰器的核心原理（闭包），能自己写简单的日志装饰器。</p>
-                <p>问题：装饰器带参数的写法还不太熟练，需要多练习。</p>
-                <p>明日计划：学习装饰器的进阶用法，完成5道刷题，整理知识点笔记。</p>
-            </div>
-            <div class="diary-item">
-                <div class="diary-date">2026-03-17 星期日</div>
-                <p>今日学习内容：Pandas 数据清洗，复习了Python列表推导式。</p>
-                <p>收获：能处理缺失值、重复值，用列表推导式简化了循环代码。</p>
-                <p>问题：Pandas 的透视表使用还不熟练，需要结合案例练习。</p>
-                <p>明日计划：练习Pandas透视表，完成2道刷题，整理本周学习笔记。</p>
-            </div>
-            <div class="diary-item">
-                <div class="diary-date">2026-03-16 星期六</div>
-                <p>今日学习内容：Python 面向对象编程，完成了1个简单的类封装案例。</p>
-                <p>收获：理解了类和对象的关系，能定义类的属性和方法。</p>
-                <p>问题：继承和多态的实际应用场景还不太清楚，需要找实战案例。</p>
-                <p>明日计划：学习继承和多态，完成3道刷题，看1个OOP实战案例。</p>
-            </div>
-        </section>
-    </div>
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            © 2026 个人主页 | 极简主义 · 记录生活
+        </div>
+    </footer>
 
     <script>
-        // 知识点标签切换功能
-        function switchTab(tabName) {
-            // 隐藏所有标签内容
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // 取消所有按钮激活状态
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            tabBtns.forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // 激活选中的标签和按钮
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+        // 实时更新时间
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const weekDay = weekDays[now.getDay()];
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const timeString = `${year}年${month}月${day}日 ${weekDay} ${hours}:${minutes}:${seconds}`;
+            document.getElementById('current-time').textContent = timeString;
         }
 
-        // 平滑滚动（点击导航栏链接）
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+        // 初始化并每秒更新时间
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // 音乐播放器交互（模拟）
+        const musicPlayer = document.querySelector('.music-player');
+        let isPlaying = true;
+        musicPlayer.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            const musicIcon = musicPlayer.querySelector('.music-icon');
+            const musicText = musicPlayer.querySelector('.music-text');
+            
+            if (isPlaying) {
+                musicIcon.className = 'fas fa-music music-icon';
+                musicText.textContent = '正在播放：平静的午后';
+            } else {
+                musicIcon.className = 'fas fa-pause music-icon';
+                musicText.textContent = '已暂停：平静的午后';
+            }
+        });
+
+        // 日历日期点击交互
+        const calendarCells = document.querySelectorAll('.calendar td');
+        calendarCells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                // 移除其他active状态
+                calendarCells.forEach(c => c.classList.remove('active'));
+                // 添加当前active状态
+                cell.classList.add('active');
+                
+                // 模拟日记内容更新（实际项目中可对接后端）
+                const diaryDate = document.querySelector('.diary-date');
+                const diaryContent = document.querySelector('.diary-content');
+                
+                if (cell.textContent === '19') {
+                    diaryDate.textContent = '2026年3月19日 星期四';
+                    diaryContent.textContent = '今日完成编程学习2小时，读了《极简主义》第三章，傍晚散步30分钟。天气晴，心情很好。';
+                } else if (cell.textContent === '13') {
+                    diaryDate.textContent = '2026年3月13日 星期四';
+                    diaryContent.textContent = '今天整理了考公笔记，做了一套行测真题，正确率75%，继续加油！';
+                } else if (cell.textContent === '24') {
+                    diaryDate.textContent = '2026年3月24日 星期一';
+                    diaryContent.textContent = '手工制作了一个木质小盒子，耗时3小时，成品很满意，拍照留念。';
+                } else {
+                    diaryDate.textContent = `2026年3月${cell.textContent}日 ${weekDays[cell.cellIndex]}`;
+                    diaryContent.textContent = '今日暂无记录，添加一条新日记吧～';
                 }
+            });
+        });
+
+        // 兴趣板块点击跳转（模拟下一层）
+        const hobbyItems = document.querySelectorAll('.hobby-item');
+        hobbyItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const hobbyName = item.querySelector('.hobby-name').textContent;
+                // 实际项目中可替换为路由跳转
+                alert(`进入【${hobbyName}】详情页 - 打卡记录/统计分析`);
+            });
+        });
+
+        // 学习板块点击交互
+        const studyItems = document.querySelectorAll('.study-item');
+        studyItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const studyName = item.querySelector('.study-name').textContent;
+                alert(`进入【${studyName}】学习详情 - 进度跟踪/学习计划`);
             });
         });
     </script>
